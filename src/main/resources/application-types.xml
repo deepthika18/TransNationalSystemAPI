@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="output" format="json">
+      <types:shape format="weave" example="examples/output.json"><![CDATA[%dw 2.0
+
+type output = {|
+  originLocation: String, 
+  destination: String
+|} {"example": "{\\\"originLocation\\\":\\\"MY-KUL\\\",\\\"destination\\\":\\\"SG-BEU\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#6f6d8eb4-98c0-45ce-8e51-59fbbea28f71"/>
+  <types:enrichment select="#b0979e74-8a29-4651-866c-22ebe3580a81"/>
+</types:mule>

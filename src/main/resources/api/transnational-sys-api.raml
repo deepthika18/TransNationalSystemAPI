@@ -1,0 +1,37 @@
+#%RAML 1.0
+title: transnational-sys-api
+
+types:
+  getRoutes: !include libraries/routes/datatypes/getRoutes-200-dataType.raml
+  commonError: !include libraries/common/datatypes/commonError-dataType.raml
+
+/{transportType}:
+  /{transportCompany}:
+    /routes:
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                type: getRoutes
+                example: !include libraries/routes/examples/getRoutes200-example.json
+          400:
+            body:
+              application/json:
+                type: commonError
+                example: !include libraries/common/examples/400Response.json
+          404:
+            body:
+              application/json:
+                type: commonError
+                example: !include libraries/common/examples/404Reponse.json
+          500:
+            body:
+              application/json:
+                type: commonError
+                example: !include libraries/common/examples/500Reponse.json     
+    
+                      
+                  
+               
+              

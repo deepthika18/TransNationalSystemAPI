@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+
+    xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+
+    xmlns="http://www.mulesoft.org/schema/mule/core"
+
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+
+    xsi:schemaLocation="
+
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+
+        http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+
+        http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+
+    <munit:config name="demo-test-suite.xml" />
+
+    <munit:test name="main-BAD_REQUEST-Test" doc:id="517a2202-9c02-4c5f-9af6-2be9c2f01e7b" description="Test" expectedErrorType="APIKIT:BAD_REQUEST">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:BAD_REQUEST" doc:id="ee7776f8-6188-45cd-bf16-8d191a2d56ad" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow-ref to demo-main" doc:id="19d517a9-c4e6-44a6-a0ff-780a07ef1e19" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="966b0e87-7fee-406f-a3a8-f053e71b3c32" actual="#[vars.httpStatus]" expected="#[400]"/>
+
+        </munit:validation>
+
+    </munit:test>
+
+    <munit:test name="main-NOT_FOUND-Test" doc:id="6491c093-940a-4785-a773-4c2f18c6d4f9" description="Test" expectedErrorType="APIKIT:NOT_FOUND">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:NOT_FOUND" doc:id="3b4e7b30-e774-402d-90a9-6eb3eb2f049b" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:NOT_FOUND" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow Reference" doc:id="a542aac3-44ff-46d7-9e55-344a557fcb40" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="d55df894-7c65-48cc-b0b4-22dbbd415d81" actual="#[vars.httpStatus]" expected="#[404]"/>
+
+        </munit:validation>
+
+    </munit:test>
+
+    <munit:test name="main-METHOD_NOT_ALLOWED-Test" doc:id="5e80213e-7eb2-44ec-b5c5-e36174bbfa57" description="Test" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:METHOD_NOT_ALLOWED" doc:id="0be4cb69-2c99-4de9-b74c-b7cc3b4e960a" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow-ref to demo-main" doc:id="bf103c6c-bc94-4632-9086-952249f2d92a" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="86aac464-d8f1-46f9-8c40-df787b823bd1" actual="#[vars.httpStatus]" expected="#[405]"/>
+
+        </munit:validation>
+
+    </munit:test>
+
+    <munit:test name="main-NOT_ACCEPTABLE-Test" doc:id="5afd8191-7d02-46e8-b2f7-603a010ead66" description="Test" expectedErrorType="APIKIT:NOT_ACCEPTABLE">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:NOT_ACCEPTABLE" doc:id="59f3f1b1-2d93-4bb3-b966-95f3e4e9d6cb" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow Reference" doc:id="fcb6da2d-2507-4f25-9aea-6ad9f4f4f0b4" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="effbbd00-0613-4f19-9fed-d0158370f4f0" actual="#[vars.httpStatus]" expected="#[406]"/>
+
+        </munit:validation>
+
+    </munit:test>
+
+    <munit:test name="main-UNSUPPORTED_MEDIA_TYPE-Test" doc:id="0a6e9d62-ff9f-4c48-b238-f4e3b2b2e781" description="Test" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="beb30775-0ccc-4b8d-95c3-9573856146f9" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow-ref to demo-main" doc:id="658658f2-b6d8-4819-b8a9-829bde39087d" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="897488fa-be20-41b2-9459-a80cf956118c" actual="#[vars.httpStatus]" expected="#[415]"/>
+
+        </munit:validation>
+
+    </munit:test>
+
+    <munit:test name="main-NOT_IMPLEMENTED-Test" doc:id="7f884de5-2bdf-4e69-8564-dbbeb9e3c075" description="Test" expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+
+        <munit:behavior >
+
+            <munit-tools:mock-when doc:name="Mock when APIKIT:NOT_IMPLEMENTED" doc:id="c09652fb-333b-4dba-8095-0f6fe05df57b" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+
+                    <munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+
+                </munit-tools:then-return>
+
+            </munit-tools:mock-when>
+
+        </munit:behavior>
+
+        <munit:execution >
+
+            <flow-ref doc:name="Flow-ref to demo-main" doc:id="882ab551-bccd-46d1-97b6-e35b80ece662" name="transnational-sys-api-main"/>
+
+        </munit:execution>
+
+        <munit:validation >
+
+            <munit-tools:assert-equals doc:name="Assert equals" doc:id="700cdbb6-1248-40d6-b5be-32adb5d8e8ad" actual="#[vars.httpStatus]" expected="#[501]"/>
+
+        </munit:validation>
+
+    </munit:test>
+	<munit:test name="firstcoach-sys-api-consoleTest" doc:id="9d83d62e-d4d6-4d1c-bfaf-01cc2abe6bdc" description="Test" expectedErrorType="APIKIT:NOT_FOUND">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_FOUND" doc:id="e318e06a-3086-416a-8b75-dc6aae44e84b" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="transnational-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to transportsystem-proc-api-console" doc:id="cda5b622-f629-4bd5-b3db-046f9c26cf2e" name="transnational-sys-api-console"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="18c3799c-d113-481e-83e8-a4fbb19fce86" actual="#[vars.httpStatus]" expected="#[404]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
+

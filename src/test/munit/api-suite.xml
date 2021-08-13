@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="api-suite.xml" />
+	<munit:test name="api-test-success" doc:id="d92f7b85-6828-4841-a667-21408dfa2a27" timeOut="12000">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="9fd8d2b5-f8c7-4a19-84d1-55c697fd8104" >
+				<munit:payload value="#[readUrl('classpath://apitestsuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://apitestsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://apitestsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\(transportType)\(transportCompany)\routes:transnational-sys-api-config" doc:id="b85b46e9-d63b-49df-b0b8-30d41fcb13fc" name="get:\(transportType)\(transportCompany)\routes:transnational-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="32ad5ac1-af19-4ce9-ab9c-c4eac4156d9b" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import apitestsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify retrive-routes-from-externalsystem" doc:id="0b2f3f8c-0ab2-4bf4-ae38-482c2d267972" processor="flow-ref" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9934c480-780d-4c98-96d9-4f82ec3def47" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="main-test-suite.xml" />
+	<munit:test name="main-test-suite-main-Sub_FlowTest" doc:id="95a872fe-b246-4a47-9bd8-c82c3dd77374" description="Test">
+		<munit:behavior >
+			<set-payload value='#[{&#10;    "originLocation": "MY-KUL",&#10;    "destinationLocation": "SG-BEU"&#10;}]' doc:name="Set Payload" doc:id="0867e241-fb22-477c-9843-e5c8675000a2" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to main-Sub_Flow" doc:id="275e151f-e685-4547-b563-8d1506447090" name="main-Sub_Flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="0ce4e097-7f8e-47b5-8e79-f858964d447b" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+	
+	<sub-flow name="main-Sub_Flow" doc:id="be2b68b0-d8d5-457e-914a-c6147cc5cd95" >
+		<ee:transform doc:name="XML input" doc:id="b0979e74-8a29-4651-866c-22ebe3580a81" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://www.example.org/Bookings/
+---
+{
+	ns0#getRoutes: {
+		in: null
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume operation="getRoutes" doc:name="Consume" doc:id="58eb3a46-289d-444e-b821-58d1d54bec9c" config-ref="Web_Service_Consumer_Config"/>
+		<ee:transform doc:name="JSON output" doc:id="6f6d8eb4-98c0-45ce-8e51-59fbbea28f71" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	originLocation:payload.body.getRouteResponse.out.ROUTELIST.ROUTEINFO.origin,
+	destinationLocation:payload.body.getRouteResponse.out.ROUTELIST.ROUTEINFO.destination
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
